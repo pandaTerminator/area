@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <style>
+        .hide {
+            display: none;
+        }
+        
+        .city-select-tab {
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            border-top: 1px solid #ccc;
+            width: 299px;
+            height: 35px;
+            background: #f0f0f0
+        }
+        
+        .city-select-tab a {
+            float: left;
+            margin-bottom: -1px;
+            padding: 7px 20px;
+            width: 33px;
+            border-left: 1px solid #ccc;
+            border-bottom: 1px solid transparent;
+            color: #4D4D4D;
+            text-align: center;
+            outline: 0;
+            cursor: pointer;
+        }
+        
+        .city-select-tab .current {
+            background: #fff;
+            border-bottom: 1px solid #fff;
+            color: #f60;
+        }
+        
+        .city-select {
+            border: 1px #ccc solid;
+            border-top: 0;
+            padding: 10px 15px;
+            width: 268px;
+            background: #fff;
+            font-size: 12px;
+        }
+        
+        .city-title {
+            margin-right: 10px;
+            height: 24px;
+            line-height: 24px;
+            text-indent: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #ccc;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .city-title:focus {
+            outline: 0;
+        }
+        
+        .has-city-title {
+            color: #333
+        }
+        
+        .city-select dl {
+            line-height: 2;
+            clear: both;
+            padding: 3px 0;
+            margin: 0
+        }
+        
+        .city-select dl:after {
+            clear: both;
+            content: " ";
+            display: block;
+            font-size: 0;
+            height: 0;
+            visibility: hidden
+        }
+        
+        .city-select dt {
+            width: 25px;
+            float: left;
+            padding-right: 10px;
+            font-weight: 700;
+            text-align: right
+        }
+        
+        .city-select dd {
+            width: 233px;
+            float: left;
+            margin-left: 0
+        }
+        
+        .city-select a {
+            display: inline-block;
+            color: #4D4D4D;
+            padding: 0 10px;
+            outline: 0;
+            text-decoration: none;
+            white-space: nowrap;
+            margin-right: 2px
+        }
+        
+        .city-select a:hover,
+        .city-select a:focus {
+            background-color: #fff8f3;
+            border-radius: 2px;
+            color: #f60
+        }
+        
+        .city-select a.current {
+            background-color: #f60;
+            color: #fff;
+            border-radius: 2px
+        }
+        
+        .city-select-province dd,
+        .city-select-city dd,
+        .city-select-street dd,
+        .city-select-district dd {
+            width: 270px
+        }
+        
+        .ks-overlay {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            z-index: 999999
+        }
+        
+        .ks-overlay-hidden {
+            visibility: hidden;
+        }
+        
+        .bf-select {
+            float: left;
+            width: 282px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bf-select bf-cn-select lSelect">
+        <div id="city-title" tabindex="0" class="city-title">请选择省市区</div>
+        <!--<div class="ks-overlay ks-overlay-hidden" style="width: 300px; left: 8px; top: 37px;">
+            <div class="ks-overlay-content">
+                <div class="city-select-warp">
+                    <div class="city-select-tab">
+                        <a class="current" attr-cont="city-province">省份</a>
+                        <a class="" attr-cont="city-city">城市</a>
+                        <a class="" attr-cont="city-district">县区</a>
+                    </div>
+                    <div class="city-select-content">
+                        <div class="city-select city-province">
+                            <dl class="fn-clear">
+                                <dt>A-G</dt>
+                                <dd>
+                                    <a title="安徽省" attr-id="340000" href="javascript:;">安徽省</a>
+                                    <a title="北京市" attr-id="110000" href="javascript:;">北京市</a>
+                                    <a title="重庆市" attr-id="500000" href="javascript:;">重庆市</a>
+                                    <a title="福建市" attr-id="350000" href="javascript:;">福建市</a>
+                                    <a title="甘肃市" attr-id="620000" href="javascript:;">甘肃市</a>
+                                    <a title="广东省" attr-id="440000" href="javascript:;">广东省</a>
+                                    <a title="广西省" attr-id="450000" href="javascript:;">广西省</a>
+                                    <a title="贵州省" attr-id="520000" href="javascript:;">贵州省</a>
+                                </dd>
+                            </dl>
+                            <dl class="fn-clear">
+                                <dt>H-K</dt>
+                                <dd>
+                                    <a title="海南省" attr-id="460000" href="javascript:;">海南省</a>
+                                    <a title="河北省" attr-id="130000" href="javascript:;">河北省</a>
+                                    <a title="黑龙江省" attr-id="230000" href="javascript:;">黑龙江省</a>
+                                    <a title="河南省" attr-id="410000" href="javascript:;">河南省</a>
+                                    <a title="湖北省" attr-id="420000" href="javascript:;">湖北省</a>
+                                    <a title="湖南省" attr-id="430000" href="javascript:;">湖南省</a>
+                                    <a title="江苏省" attr-id="320000" href="javascript:;">江苏省</a>
+                                    <a title="江西省" attr-id="360000" href="javascript:;">江西省</a>
+                                    <a title="吉林省" attr-id="220000" href="javascript:;">吉林省</a>
+                                </dd>
+                            </dl>
+                            <dl class="fn-clear">
+                                <dt>L-S</dt>
+                                <dd>
+                                    <a title="辽宁省" attr-id="210000" href="javascript:;">辽宁省</a>
+                                    <a title="内蒙古省" attr-id="150000" href="javascript:;">内蒙古省</a>
+                                    <a title="宁夏省" attr-id="640000" href="javascript:;">宁夏省</a>
+                                    <a title="青海省" attr-id="630000" href="javascript:;">青海省</a>
+                                    <a title="山东省" attr-id="370000" href="javascript:;">山东省</a>
+                                    <a title="上海市" attr-id="310000" href="javascript:;">上海市</a>
+                                    <a title="山西省" attr-id="140000" href="javascript:;">山西省</a>
+                                    <a title="陕西省" attr-id="610000" href="javascript:;">陕西省</a>
+                                    <a title="四川省" attr-id="510000" href="javascript:;">四川省</a>
+                                </dd>
+                            </dl>
+                            <dl class="fn-clear">
+                                <dt>T-Z</dt>
+                                <dd>
+                                    <a title="天津市" attr-id="120000" href="javascript:;">天津市</a>
+                                    <a title="新疆省" attr-id="650000" href="javascript:;">新疆省</a>
+                                    <a title="西藏省" attr-id="540000" href="javascript:;">西藏省</a>
+                                    <a title="云南省" attr-id="530000" href="javascript:;">云南省</a>
+                                    <a title="浙江省" attr-id="330000" href="javascript:;">浙江省</a>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="city-select hide city-city"></div>
+                        <div class="city-select hide city-district"></div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="dataCity.min.js"></script>
+<script src="dataArea.min.js"></script>
+<script>
+    function ChooseCity() {
+        this.result = [];
+        var html =
+            '<div class="ks-overlay ks-overlay-hidden" style="width: 300px; left: 8px; top: 37px;"><div class=ks-overlay-content><div class=city-select-warp><div class=city-select-tab><a class=current attr-cont=city-province>省份</a><a attr-cont=city-city>城市</a><a attr-cont=city-district>县区</a></div><div class=city-select-content><div class="city-select city-province"><dl class=fn-clear><dt>A-G<dd><a title="安徽省" attr-id=340000 href="javascript:;">安徽省</a><a title="北京市" attr-id=110000 href="javascript:;">北京市</a><a title="重庆市" attr-id=500000 href="javascript:;">重庆市</a><a title="福建市" attr-id=350000 href="javascript:;">福建市</a><a title="甘肃市" attr-id=620000 href="javascript:;">甘肃市</a><a title="广东省" attr-id=440000 href="javascript:;">广东省</a><a title="广西省" attr-id=450000 href="javascript:;">广西省</a><a title="贵州省" attr-id=520000 href="javascript:;">贵州省</a></dl><dl class=fn-clear><dt>H-K<dd><a title="海南省" attr-id=460000 href="javascript:;">海南省</a><a title="河北省" attr-id=130000 href="javascript:;">河北省</a><a title="黑龙江省" attr-id=230000 href="javascript:;">黑龙江省</a><a title="河南省" attr-id=410000 href="javascript:;">河南省</a><a title="湖北省" attr-id=420000 href="javascript:;">湖北省</a><a title="湖南省" attr-id=430000 href="javascript:;">湖南省</a><a title="江苏省" attr-id=320000 href="javascript:;">江苏省</a><a title="江西省" attr-id=360000 href="javascript:;">江西省</a><a title="吉林省" attr-id=220000 href="javascript:;">吉林省</a></dl><dl class=fn-clear><dt>L-S<dd><a title="辽宁省" attr-id=210000 href="javascript:;">辽宁省</a><a title="内蒙古省" attr-id=150000 href="javascript:;">内蒙古省</a><a title="宁夏省" attr-id=640000 href="javascript:;">宁夏省</a><a title="青海省" attr-id=630000 href="javascript:;">青海省</a><a title="山东省" attr-id=370000 href="javascript:;">山东省</a><a title="上海市" attr-id=310000 href="javascript:;">上海市</a><a title="山西省" attr-id=140000 href="javascript:;">山西省</a><a title="陕西省" attr-id=610000 href="javascript:;">陕西省</a><a title="四川省" attr-id=510000 href="javascript:;">四川省</a></dl><dl class=fn-clear><dt>T-Z<dd><a title="天津市" attr-id=120000 href="javascript:;">天津市</a><a title="新疆省" attr-id=650000 href="javascript:;">新疆省</a><a title="西藏省" attr-id=540000 href="javascript:;">西藏省</a><a title="云南省" attr-id=530000 href="javascript:;">云南省</a><a title="浙江省" attr-id=330000 href="javascript:;">浙江省</a></dl></div><div class="city-select hide city-city"></div><div class="city-select hide city-district"></div></div></div></div></div>';
+        $(html).insertAfter('.city-title');
+        this.tab();
+        this.clickShow();
+        this.clickHide();
+        this.areaClick();
+    }
+
+    // 点击显示
+    ChooseCity.prototype.clickShow = function () {
+        $('.bf-select').on('click', function () {
+            $('.ks-overlay').removeClass('ks-overlay-hidden');
+        });
+    }
+
+    ChooseCity.prototype.clickHide = function () {
+        var targetArea = $('.bf-select');
+        $(document).on('mouseup', function (e) {
+            if (targetArea.has(e.target).length == 0 && !targetArea.is(e.target)) {
+                $('.ks-overlay').addClass('ks-overlay-hidden');
+            }
+        });
+    }
+
+    // 选择地址
+    ChooseCity.prototype.areaClick = function () {
+        $('.bf-select').on('click', ' .city-select dd a', function (e) {
+            var _this = this,
+                target = e.target,
+                cont = $('.city-select-tab').find('.current').attr('attr-cont'),
+                id = $(target).attr('attr-id'),
+                tit = $(target).text();
+            $('.' + cont).find('dd a').removeClass('current');
+            $(target).addClass('current');
+            switch (cont) {
+                case 'city-province':
+                    var data = dataCity[id];
+                    _this.renderArea('city-city', data);
+                    _this.title(0, tit);
+                    break;
+                case 'city-city':
+                    var data = dataArea[id];
+                    _this.renderArea('city-district', data);
+                    _this.title(1, tit);
+                    break;
+                case 'city-district':
+                    _this.title(2, tit);
+                    $('.ks-overlay').addClass('ks-overlay-hidden');
+                    break;
+            }
+        }.bind(this));
+    }
+
+    // 渲染当前地址
+    ChooseCity.prototype.renderArea = function (position, data) {
+        $('.city-select-content .city-select').addClass("hide");
+        $('.city-select-content').find('.' + position).removeClass("hide").html('');
+        $('.city-select-tab a').removeClass('current');
+        $('.city-select-tab a').each(function (index, el) {
+            if ($(el).attr('attr-cont') == position) {
+                $(el).addClass('current');
+            }
+        });
+        var html = '',
+            node = '';
+        for (var i = 0; i < data.length; i++) {
+            node += '<a title="' + data[i].name + '" attr-id="' + data[i].id + '" href="javascript:;">' + data[i].name +
+                '</a>';
+        }
+        html = '<dl class="fn-clear city-select-city"><dd>' + node + '</dd></dl>';
+        $('.city-select-content').find('.' + position).append(html);
+    }
+
+    // 当选择省份改变时改变内容
+    ChooseCity.prototype.destory = function () {
+        $('.city-district .city-select-city dd').html('');
+    }
+
+    ChooseCity.prototype.tab = function () {
+        var titles = $('.bf-select').find('.city-select-tab a');
+        var contents = $('.city-select-warp').find('.city-select-content .city-select');
+        titles.each(function (index, el) {
+            $(el).on('click', function () {
+                $(titles).removeClass('current').eq(index).addClass('current');
+                $(contents).addClass('hide').eq(index).removeClass('hide');
+            });
+        });
+    }
+
+    ChooseCity.prototype.title = function (index, tit) {
+        var html = '';
+        if (this.result[index] == undefined) {
+            this.result.push(tit);
+        } else {
+            if (this.result[index] != tit) {
+                this.result[index] = tit;
+                this.result = this.result.slice(0, index + 1);
+                if (index == 0) {
+                    this.destory();
+                }
+            }
+        }
+        console.log(this.result);
+        for (var i = 0; i < this.result.length; i++) {
+            if (i > 0) {
+                html += '<span style="color:#cfcfcf">/</span>' + this.result[i];
+            } else {
+                html += this.result[i];
+            }
+        }
+        $('.city-title').html('').append(html).addClass('has-city-title');
+    }
+
+    var chooseCity = new ChooseCity();
+</script>
+
+</html>
