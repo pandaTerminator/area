@@ -131,6 +131,7 @@
     // 选择地址
     ChooseCity.prototype.areaClick = function () {
         this.element.on('click', ' .city-select dd a', function (e) {
+            e.stopPropagation();
             var _this = this,
                 target = e.target,
                 cont = $('.city-select-tab').find('.current').attr('attr-cont'),
